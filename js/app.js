@@ -21,9 +21,10 @@ document.getElementById('key-pad').addEventListener('click', function (event) {
         if (number == 'C') {
             calcInput.value = '';
         }
-        if (number == '&lt;') {
-            console.log("back button")
+        if (number == '<') {
+            calcInput.value = calcInput.value.slice(0, -1);
         }
+
     }
     else {
 
@@ -34,12 +35,13 @@ document.getElementById('key-pad').addEventListener('click', function (event) {
 
 
 })
-
+let tryLeft = 3;
 function verifyPin() {
     const pin = document.getElementById('display-pin').value;
     const typedNumbers = document.getElementById('typed-numbers').value;
     const successMassage = document.getElementById('notify-success');
     const failedMassage = document.getElementById('notify-failed');
+
     if (pin == typedNumbers) {
         failedMassage.style.display = 'none';
         successMassage.style.display = 'block';
@@ -47,5 +49,15 @@ function verifyPin() {
     else {
         successMassage.style.display = 'none';
         failedMassage.style.display = 'block';
+
+        tryLeft--;
+        console.log(tryLeft);
+        if (tryLeft == 0) {
+            document.getElementById("try-btn").disabled = true;
+            document.getElementById("try-btn").style.backgroundColor = "red";
+
+        }
+        document.getElementById('try').innerText = tryLeft;
+
     }
 }
